@@ -3,6 +3,7 @@ FROM alpine:latest as prepare
 
 ARG GTNH_VERSION=2.6.1
 ARG PORT=25565
+ARG MEMORY=6G
 
 WORKDIR /tmp
 
@@ -21,4 +22,4 @@ EXPOSE ${PORT}
 VOLUME /data
 WORKDIR /data
 
-CMD java -Xms6G -Xmx6G -Dfml.readTimeout=180 @java9args.txt -jar lwjgl3ify-forgePatches.jar nogui
+ENTRYPOINT ["java", "-Xms${INIT_MEMORY:-$MEMORY}", "-Xm${MAX_MEMORY:-$MEMORY}", "-Dfml.readTimeout=180", "@java9args.txt", "-jar", "lwjgl3ify-forgePatches.jar", "nogui"]
