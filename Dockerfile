@@ -14,12 +14,11 @@ RUN sed -i 's/eula=false/eula=true/' gtnh/eula.txt
 # Deploy Prepared Server
 FROM ghcr.io/graalvm/jdk-community:21
 
-COPY --from=prepare /tmp/gtnh /srv/gtnh
-RUN ln -s /srv/gtnh /data
+COPY --from=prepare /tmp/gtnh /data
 
 EXPOSE ${PORT}
 
 VOLUME /data
-WORKDIR /srv/gtnh
+WORKDIR /data
 
-ENTRYPOINT startserver-java9.sh
+CMD java -Xms6G -Xmx6G -Dfml.readTimeout=180 @java9args.txt -jar lwjgl3ify-forgePatches.jar nogui
