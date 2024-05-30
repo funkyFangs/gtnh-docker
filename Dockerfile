@@ -13,7 +13,8 @@ WORKDIR /tmp
 ADD https://downloads.gtnewhorizons.com/ServerPacks/GT_New_Horizons_${GTNH_VERSION}_Server_Java_17-21.zip gtnh.zip
 RUN unzip gtnh.zip -d gtnh
 RUN rm gtnh.zip
-RUN sed -i 's/eula=false/eula=true/' gtnh/eula.txt
+RUN ./set_config.sh 'eula' true gtnh/eula.txt
+RUN ./set_config.sh 'server-port' "${PORT}" gtnh/server.properties
 
 # Deploy Prepared Server
 FROM ghcr.io/graalvm/jdk-community:${JAVA_VERSION}
