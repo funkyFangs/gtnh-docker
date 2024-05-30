@@ -13,6 +13,7 @@ ADD https://downloads.gtnewhorizons.com/ServerPacks/GT_New_Horizons_${GTNH_VERSI
 RUN unzip gtnh.zip -d gtnh
 RUN rm gtnh.zip
 
+COPY ./set_config.sh set_config.sh
 RUN ls
 RUN ./set_config.sh 'eula' true gtnh/eula.txt
 RUN ./set_config.sh 'server-port' "${PORT}" gtnh/server.properties
