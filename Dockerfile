@@ -4,7 +4,6 @@ FROM alpine:latest as prepare
 ARG GTNH_VERSION=2.6.1
 ARG PORT=25565
 ARG MEMORY=6G
-ARG JAVA_VERSION=21
 ARG INIT_MEMORY
 ARG MAX_MEMORY
 
@@ -17,7 +16,7 @@ RUN ./set_config.sh 'eula' true gtnh/eula.txt
 RUN ./set_config.sh 'server-port' "${PORT}" gtnh/server.properties
 
 # Deploy Prepared Server
-FROM ghcr.io/graalvm/jdk-community:${JAVA_VERSION}
+FROM ghcr.io/graalvm/jdk-community:21
 
 COPY --from=prepare /tmp/gtnh /data
 
