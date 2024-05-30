@@ -10,6 +10,7 @@ ARG MAX_MEMORY
 WORKDIR /tmp
 
 ADD https://downloads.gtnewhorizons.com/ServerPacks/GT_New_Horizons_${GTNH_VERSION}_Server_Java_17-21.zip gtnh.zip
+COPY ./set_config.sh set_config.sh
 RUN unzip gtnh.zip -d gtnh
 RUN rm gtnh.zip
 RUN ./set_config.sh 'eula' true gtnh/eula.txt
