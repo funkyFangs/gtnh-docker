@@ -14,9 +14,8 @@ RUN unzip gtnh.zip -d gtnh
 RUN rm gtnh.zip
 
 COPY ./set_config.sh set_config.sh
-RUN ls
-RUN ./set_config.sh 'eula' true gtnh/eula.txt
-RUN ./set_config.sh 'server-port' "${PORT}" gtnh/server.properties
+RUN /tmp/set_config.sh 'eula' true gtnh/eula.txt
+RUN /tmp/set_config.sh 'server-port' "${PORT}" gtnh/server.properties
 
 # Deploy Prepared Server
 FROM ghcr.io/graalvm/jdk-community:21
