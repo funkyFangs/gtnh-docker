@@ -14,7 +14,7 @@ RUN unzip gtnh.zip -d gtnh
 RUN rm gtnh.zip
 
 COPY ./set_config.sh set_config.sh
-RUN ls
+RUN cat set_config.sh
 RUN ./set_config.sh 'eula' true gtnh/eula.txt
 RUN ./set_config.sh 'server-port' "${PORT}" gtnh/server.properties
 
