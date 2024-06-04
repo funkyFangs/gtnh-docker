@@ -20,11 +20,10 @@ RUN /tmp/set_config.sh 'server-port' "${PORT}" gtnh/server.properties
 # Deploy Prepared Server
 FROM ghcr.io/graalvm/jdk-community:21
 
-COPY --from=prepare /tmp/gtnh /data
-
-EXPOSE ${PORT}
-
 VOLUME /data
 WORKDIR /data
+COPY --from=prepare /tmp/gtnh .
+
+EXPOSE ${PORT}
 
 ENTRYPOINT java -Xms${INIT_MEMORY:-$MEMORY} -Xm${MAX_MEMORY:-$MEMORY} -Dfml.readTimeout=180 @java9args.txt -jar lwjgl3ify-forgePatches.jar nogui
