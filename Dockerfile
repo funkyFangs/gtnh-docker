@@ -50,3 +50,4 @@ ENTRYPOINT java \
 	--add-opens java.sql.rowset/javax.sql.rowset.serial=ALL-UNNAMED-jar \
 	-jar lwjgl3ify-forgePatches.jar \
 	nogui
+
