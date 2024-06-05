@@ -13,7 +13,7 @@ ADD https://downloads.gtnewhorizons.com/ServerPacks/GT_New_Horizons_${GTNH_VERSI
 RUN unzip gtnh.zip -d gtnh && rm gtnh.zip
 
 # Reconfigure Server File
-COPY --chmod=+x set_config.sh .
+COPY --chmod=+x ["set_config.sh", "/tmp"]
 RUN sh set_config.sh eula true gtnh/eula.txt
 RUN sh set_config.sh server-port "${PORT}" gtnh/server.properties
 RUN sed -i '/^\s*java/!d' gtnh/startserver-java9.sh
@@ -22,12 +22,16 @@ RUN sed -i '/^\s*java/!d' gtnh/startserver-java9.sh
 FROM ghcr.io/graalvm/jdk-community:21
 
 # Copy Prepared Instance to /srv/gtnh
+COPY --from=prepare ["/tmp/gtnh", "/data"]
+
 WORKDIR /data
-VOLUME /data
-COPY --from=prepare /tmp/gtnh .
+VOLUME ["/data"]
+
+RUN echo 'test' > test.txt
 
 # Expose Port
 EXPOSE ${PORT}
 
 # Run Start Script
-ENTRYPOINT ["sh", "./startserver-java9.sh"]
+ENTRYPOINT exec sh startserver-java9.sh
+
