@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 MEMORY=6G
 INIT_MEMORY=${1:-$MEMORY}

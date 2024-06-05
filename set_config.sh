@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 KEY=$1
 VALUE=$2
