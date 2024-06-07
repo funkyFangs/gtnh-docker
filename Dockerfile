@@ -27,8 +27,6 @@ COPY --from=prepare ["/tmp/gtnh", "/data"]
 WORKDIR /data
 VOLUME ["/data"]
 
-RUN echo 'test' > test.txt
-
 # Expose Port
 EXPOSE ${PORT}
 
